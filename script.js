@@ -12,7 +12,7 @@ function exercise01({nome = 'Lucas'}) {
         }
     };
     
-    person.speakname();
+    person.speakname.bind(person)();
 
 }
  
@@ -41,13 +41,13 @@ function exercise03({ number = [1, 2, 3, 4, 5] }) {
  
     const numbersquare = []
 
-    const raised = number.map((number) => {
+    number.map((number) => {
         console.log(number);
         numbersquare.push(number ** 2);
     })
 
     console.log("\n");
-    const numbersquarecount = numbersquare.map((numbersquare) => {
+    numbersquare.map((numbersquare) => {
         console.log(numbersquare);
     })
 
@@ -58,21 +58,20 @@ function exercise03({ number = [1, 2, 3, 4, 5] }) {
 Crie uma função que receba um array de strings e uma função callback. A função deve aplicar a função callback a cada 
 elemento do array e retornar um novo array com os resultados.
 */
-function exercise04({ word = ['John', 'Maria', 'Joana'] }) {
+function exercise04({ word = ['Jão', 'Maria', 'Joana', 'Guto'] }) {
 
-    const newword = [];
+    const callback = word => word.toUpperCase();
 
-    const addword = word.map((word) =>
-    {
-        newword.push(word + " Exemplo");
-    });
+    // Use o método reduce para aplicar a função callback a cada palavra no array e adicionar ao novo array
+    const newWords = word.reduce((resultArray, currentWord) => {
+        resultArray.push(callback(currentWord));
+        return resultArray;
+    }, []);
 
-    const shownewarray = newword.map((newword) =>
-    {
-        console.log(newword);
-    });
+    newWords.map((newWords) => {
+        console.log(newWords);
+    })
 
-    
 }
  
 // Exercise 5
@@ -86,37 +85,39 @@ function exercise05({x = 1, y = 2, operation = '+'}) {
     const calculator = {
         x: x,
         y: y,
-        add: function() {
+        operation: operation,
+        add() {
             console.log(this.x + this.y);
         },
-        subtract: function() {
+        subtract() {
             console.log(this.x - this.y);
         },
-        multiply: function() {
+        multiply() {
             console.log(this.x * this.y);
         },
-        divide: function() {
+        divide() {
             console.log(this.x / this.y);
+        },
+        choose(){
+            switch(this.operation){
+                case '+':
+                    this.add();
+                    break;
+                case '-':
+                    this.subtract();
+                    break;
+                case '*':
+                    this.multiply();
+                    break;
+                case '/':
+                    this.divide();
+                    break;
+            }
         }
     }
 
-    const {add, subtract, multiply , divide} = calculator;
+    calculator.choose.bind(calculator)();
 
-    switch(operation){
-        case '+':
-            add.bind(calculator)();
-            break;
-        case '-':
-            subtract.bind(calculator)();
-            break;
-        case '*':
-            multiply.bind(calculator)();
-            break;
-        case '/':
-            divide.bind(calculator)();
-            break;
-    }
-    
 }
  
 // Exercise 6
@@ -198,8 +199,7 @@ function exercise07({ value = 1600.00, numberaccount = "12345678-9"}) {
  
 // If you want put values you can but basement in the destruction of parameters
  
-// 
-exercise01({ });
+// exercise01({ });
 // exercise02({ });
 // exercise03({ });
 // exercise04({ });
