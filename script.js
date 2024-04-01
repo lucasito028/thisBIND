@@ -167,7 +167,11 @@ function exercise07({ value = 1600.00, numberaccount = "12345678-9"}) {
         }
 
         withdraw(value){
-            this.value -= value;
+            if(value < this.value){
+                this.value -= value;
+            }else{
+                console.log("Não Pode descontar mais")
+            }
         }
 
         showbalance(){
@@ -202,11 +206,11 @@ function exercise07({ value = 1600.00, numberaccount = "12345678-9"}) {
 // exercise01({ });
 // exercise02({ });
 // exercise03({ });
-// 
-exercise04({ });
+// exercise04({ });
 // exercise05({ });
 // exercise06({ });
-// exercise07({ });
+// 
+exercise07({ });
  
 //And Last in cmd put node script.js
 //Or try in index.html
